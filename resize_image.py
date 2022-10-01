@@ -1,7 +1,7 @@
 import cv2
 
 # factor = int(input("Shrink image by what factor: "))
-factor = 0.5
+factor = 2
 
 # Read image
 img = cv2.imread("mountain.jpeg")
@@ -21,3 +21,5 @@ output = cv2.resize(img, (new_width, new_height))
 print(width, height)
 print(img.shape)
 print(type(img))
+
+cv2.imwrite("mountain copy.jpeg",  output)
