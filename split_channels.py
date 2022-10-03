@@ -1,6 +1,6 @@
 import cv2
 
-img = cv2.imread("mountain.jpeg")
+img = cv2.imread("rgb.png")
 
 # Split image into its respective channels
 B, G, R = cv2.split(img)
