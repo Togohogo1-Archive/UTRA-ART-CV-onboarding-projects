@@ -12,6 +12,7 @@ height = shape[0]
 new_width = int(width*factor)
 new_height = int(height*factor)
 
+# Different types of interpolation for shrinking and expanding
 output = cv2.resize(img, (new_width, new_height), interpolation=cv2.INTER_CUBIC if factor > 1 else cv2.INTER_AREA)
 
 cv2.imwrite("output.jpeg",  output)
