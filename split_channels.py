@@ -1,6 +1,6 @@
 import cv2
 
-img = cv2.imread("rgb.png")  # OpenCV reads BGR as default
+img = cv2.imread("media/rgb.png")  # OpenCV reads BGR as default
 channel = input("RGB or HSV: ")
 
 if channel == "RGB":
