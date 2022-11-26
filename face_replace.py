@@ -1,6 +1,7 @@
 import cv2 as cv
 import numpy as np
 
+
 img = cv.imread("media/rising_sun3.png")
 ammar = cv.imread("media/ammar.png")
 gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)  # Grayscale image of sunrise
@@ -31,13 +32,18 @@ resize_ammar = cv.resize(ammar, (new_ammar_w, new_ammar_h), interpolation=cv.INT
 canvas[y-offset:y-offset+new_ammar_h, x:x+w] = resize_ammar
 
 # Overlaying resize_ammar on where the sun should be
-# TODO come up with a better way to do this
-for i, row in enumerate(img[y-offset:y-offset+new_ammar_h], start=y-offset):
-    for j, col in enumerate(row[x:x+w], start=x):
-        # cv.imshow() does not display alpha channel?
-        img[i][j] = canvas[i][j] if canvas[i][j].any() else img[i][j]
+gray_canvas = cv.cvtColor(canvas, cv.COLOR_BGR2GRAY)
+_, inv_thresh = cv.threshold(gray_canvas, 1, 255, cv.THRESH_BINARY_INV)
+sun_face_hole = cv.bitwise_and(cv.cvtColor(inv_thresh, cv.COLOR_GRAY2BGR), img)
+final = cv.bitwise_or(sun_face_hole, canvas)
 
-cv.imshow("Face replace", img)
+# The old sus way
+# for i, row in enumerate(img[y-offset:y-offset+new_ammar_h], start=y-offset):
+#     for j, col in enumerate(row[x:x+w], start=x):
+#         # cv.imshow() does not display alpha channel?
+#         img[i][j] = canvas[i][j] if canvas[i][j].any() else img[i][j]
+
+cv.imshow("Face replace", final)
 
 cv.waitKey(0)
 cv.destroyAllWindows()
